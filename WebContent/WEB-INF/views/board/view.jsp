@@ -1,4 +1,12 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+	pageContext.setAttribute("line", "\r\n");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,16 +16,7 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-			<h1>MySite</h1>
-			<ul>
-				<li><a href="">로그인</a><li>
-				<li><a href="">회원가입</a><li>
-				<li><a href="">회원정보수정</a><li>
-				<li><a href="">로그아웃</a><li>
-				<li>님 안녕하세요 ^^;</li>
-			</ul>
-		</div>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 		<div id="content">
 			<div id="board" class="board-form">
 				<table class="tbl-ex">
@@ -26,35 +25,32 @@
 					</tr>
 					<tr>
 						<td class="label">제목</td>
-						<td>제목입니다.</td>
+						<td>${content.title }</td>
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								내용 1입니다.<br>
-								내용 2입니다.<br>
-								내용 3입니다.
+								${fn:replace(content.content, line, "<br/>") }
 							</div>
 						</td>
 					</tr>
 				</table>
 				<div class="bottom">
-					<a href="">글목록</a>
-					<a href="">글수정</a>
+					<a href="${pageContext.request.contextPath }/board?page=${param.page }&kwd=${param.kwd}">글목록</a>
+					<c:if test="${content.userNo == sessionScope.authUser.no }">
+						<a href="${pageContext.request.contextPath }/board?a=modifyform&no=${content.no}">글수정</a>
+					</c:if>
+					<c:if test="${not empty sessionScope.authUser }">
+						<a href="${pageContext.request.contextPath }/board?a=writeform&group_no=${content.groupNo}&order_no=${content.orderNo}&depth=${content.depth}">답글</a>
+					</c:if>
 				</div>
 			</div>
 		</div>
-		<div id="navigation">
-			<ul>
-				<li><a href="">안대혁</a></li>
-				<li><a href="">방명록</a></li>
-				<li><a href="">게시판</a></li>
-			</ul>
-		</div>
-		<div id="footer">
-			<p>(c)opyright 2016 </p>
-		</div>
+		<c:import url="/WEB-INF/views/include/navigation.jsp">
+			<c:param name="location" value="board"></c:param>
+		</c:import>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 	</div>
 </body>
 </html>
