@@ -10,8 +10,8 @@ public class MySQLWebDBConnection implements DBConnection{
 		Connection conn = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-	         String url = "jdbc:mysql://localhost/webdb";
-	         conn = DriverManager.getConnection(url, "webdb", "webdb");
+	         String url = "jdbc:mysql://mysitedb.czdehck2zwaz.ap-northeast-2.rds.amazonaws.com/mysite";
+	         conn = DriverManager.getConnection(url, "ghrud92", "ghghgh0613");
 		}catch (ClassNotFoundException e) {
 	         System.out.println("드라이버를 찾을 수 없습니다." + e);
 	    } 

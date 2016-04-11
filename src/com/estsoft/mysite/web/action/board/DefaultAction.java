@@ -35,7 +35,7 @@ public class DefaultAction implements Action {
 		request.setAttribute("list", list);
 		
 		int left = 1;
-		int right = 1;
+		int right = 0;
 		int startPage, lastPage;
 		int count = dao.getCount(request.getParameter("kwd"));
 		int maxPage = count/CountPage;
@@ -52,8 +52,8 @@ public class DefaultAction implements Action {
 		}
 		if(selectedPageGroup == 1)
 			left = 0;
-		if(selectedPageGroup == maxPageGroup)
-			right = 0;
+		if(selectedPageGroup < maxPageGroup)
+			right = 1;
 		startPage = (selectedPageGroup - 1) * CountList + 1;
 		lastPage = (selectedPageGroup) * CountList;
 		if(lastPage > maxPage)

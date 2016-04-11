@@ -23,7 +23,7 @@ public class GuestBookDao {
 		try{
 			conn = dbConnection.getConnection();
 			
-			String sql = "insert into guestbook values(null, ?, now(), ?, password(?))";
+			String sql = "insert into guestbook values(null, ?, now(), ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getName());
@@ -93,7 +93,7 @@ public class GuestBookDao {
 		try{
 			conn = dbConnection.getConnection();
 			
-			String sql = "delete from guestbook where no = ? and passwd = password(?)";
+			String sql = "delete from guestbook where no = ? and passwd = ?";
 			pstmt = conn.prepareStatement(sql);
 					
 			pstmt.setLong(1, vo.getNo());

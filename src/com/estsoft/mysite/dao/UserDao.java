@@ -21,7 +21,7 @@ public class UserDao {
 		try{
 			conn = dbConnection.getConnection();
 			
-			String sql = "insert into user values(null,?,?,password(?), ?)";
+			String sql = "insert into user values(null,?,?,?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getName());
@@ -52,7 +52,7 @@ public class UserDao {
 		try{
 			conn = dbConnection.getConnection();
 			
-			String sql = "select no, name, email from user where email = ? and passwd = password(?)";
+			String sql = "select no, name, email from user where email = ? and passwd = ?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getEmail());
@@ -190,7 +190,7 @@ public class UserDao {
 		try{
 			conn = dbConnection.getConnection();
 			
-			String sql = "update user set name = ?, email = ?, passwd = password(?), gender = ? where no = ?";
+			String sql = "update user set name = ?, email = ?, passwd = ?, gender = ? where no = ?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getName());
